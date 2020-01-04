@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>todoList jquery</title>
+  <script src="./jquery.js"></script>
+</head>
+<body>
+  <div id="app">
+    <input id="input" type="text">
+    <button id="btn">提交</button>
+    <ul id="list">
+    </ul>
+  </div>
+
+
+  <script>
+    // m模型 v p 上面的这个dom app实际上就是v层，他指的是我们的视图
+    // p是控制器 视图层和控制器是怎么通信的，当视图发生改变，点击提交的时候，控制器里面得到代码会执行，控制器里面去负责了所有的业务逻辑，控制器里可以去调模型层，去发ajax请求 
+    //或者控制器层处理业务逻辑之后，控制器会通过dom操作，再来改变视图
+    function Page() {
+
+    }
+
+    $.extend(Page.prototype,{
+      init:function () {
+        this.bindEvents()
+      },
+      bindEvents:function () {  
+        let btn = $('#btn')
+        btn.on('click',$.proxy(this.handleBtnClick,this))
+      },
+      handleBtnClick:function () {
+        let inputElem = $('#input')
+        let inputValue = inputElem.val()
+        let ulElem = $('#list')
+        ulElem.append(`<li>${inputValue}</li>`)
+        $('#input').val('')
+      }
+    })
+    let page = new Page()
+    page.init()
+
+  </script>
+</body>
+</html>
